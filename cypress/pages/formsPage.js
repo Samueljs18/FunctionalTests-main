@@ -1,4 +1,5 @@
 import { gerarUsuario } from '../support/faker'
+import formsPageDefault from './formsPageDefault';
 
 const usuario = gerarUsuario();
 
@@ -24,8 +25,6 @@ class formsPage {
 
     }
 
-
-    
 
     selecionarGeneroMasculino() {
         this.elementos.opcaoGeneroMasculino().click();
@@ -78,6 +77,23 @@ class formsPage {
 
     selecionarCidadePanipat() {
         this.elementos.opcaoPanipat().click();
+    }
+
+    preencherFormulario(nome, sobrenome, email, telefone, materia, arquivo, endereco) {
+        formsPageDefault.preencherNome(nome);
+        formsPageDefault.preencherCampoSobreme(sobrenome);
+        formsPageDefault.preencherCampoEmail(email);
+        this.preencherCampoTelefone(telefone);
+        this.preencherCampoMateria(materia);
+        this.clicarCampoReading();
+        this.selecionarGeneroUsuario();
+        this.selecionarHobbieReading();
+        this.anexarArquivo(arquivo);
+        this.preencherCampoEnderecoAtual(endereco);
+        this.clicarComboState();
+        this.selecionarStateHaryana();
+        this.clicarComboCity();
+        this.selecionarCidadePanipat();
     }
 
     selecionarGeneroUsuario() {

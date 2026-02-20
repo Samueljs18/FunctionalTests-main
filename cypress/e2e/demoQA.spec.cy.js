@@ -9,35 +9,21 @@ const usuario = gerarUsuario();
 
 describe('Testes Aplicação DemoQA', () => {
 
-
   beforeEach("acessar Página Inicial", () => {
-    cy.visit('https://demoqa.com/')
+    formsPageDefault.acessarSite('https://demoqa.com/')
   })
 
-  it('Validar Practice Form', () => {
+  it('Validar preenchimento do formulário de forma aleatória e fechar modal', () => {
     formsPageDefault.clicarbotao('Forms');
     formsPageDefault.clicarbotao('Practice Form');
-    formsPageDefault.preencherNome(usuario.nome);
-    formsPageDefault.preencherCampoSobreme(usuario.sobrenome);
-    formsPageDefault.preencherCampoEmail(usuario.email);
-    formsPage.preencherCampoTelefone(usuario.telefone);
-    formsPage.preencherCampoMateria("Computer Science");
-    formsPage.clicarCampoReading();
-    formsPage.selecionarGeneroUsuario();
-    formsPage.selecionarHobbieReading();
-    formsPage.anexarArquivo("cypress/support/file/arquivo.txt");
-    formsPage.preencherCampoEnderecoAtual("Lorem ipsum");
-    formsPage.clicarComboState();
-    formsPage.selecionarStateHaryana();
-    formsPage.clicarComboCity();
-    formsPage.selecionarCidadePanipat();
+    formsPage.preencherFormulario(usuario.nome,usuario.sobrenome,usuario.email,usuario.telefone,"Computer Science","cypress/support/file/arquivo.txt","Lorem ipsum");
     formsPageDefault.clicarBotaoSubmit();
     formsPage.ValidarSemodalEstaComMensagemEsperada();
     formsPage.clicarForaDaPagina();
     formsPage.validarSeModalFoiOculto();
   });
 
-  it('Validar trocando contexto do navegador Brownser Windows', () => {
+  it('Validar interação com nova janela aberta', () => {
     formsPageDefault.clicarbotao('Alerts, Frame & Windows');
     formsPageDefault.clicarbotao('Browser Windows');
     alertsFramePage.forcarRedirecionamentoParaOutraAba();
@@ -45,7 +31,7 @@ describe('Testes Aplicação DemoQA', () => {
     alertsFramePage.ValidarSeTextoNovaPaginaEstaDeAcordoComEsperado('This is a sample page');
   })
 
-  it('Validar Practice Form', () => {
+  it('Validar interação com Tabelas', () => {
     formsPageDefault.clicarbotao('Elements');
     formsPageDefault.clicarbotao('Web Tables');
     webTablesPage.clicarBotaoAdicionar();
@@ -56,20 +42,13 @@ describe('Testes Aplicação DemoQA', () => {
     webTablesPage.validarSeUsuarioFoiEditadoComSucesso();
     webTablesPage.clicarbotaoExcluirUltimoRegistro();
     webTablesPage.validarSeUsuarioFoiExcluidoComSucesso();
-
-    /*Bônus (pontos adicionais na avaliação):
-    Criar 12 novos registros de forma dinâmica através do cucumber
-    Deletar todos os novos registros criados*/
-    //preencherCamposFormulario(usuario.nome, usuario.sobrenome, usuario.email, "22", "350000", "Cloud"); 
-
-
   })
 
-  it("Validar barra de loading", () => {
+  it("Validar teste na barra de carregamento", () => {
     formsPageDefault.clicarbotao('Widgets');
     formsPageDefault.clicarbotao('Progress Bar');
     widgetPage.clicarBotaoStartStop();
-    cy.wait(1000);
+    formsPageDefault.aguardarTempo(1000);
     widgetPage.clicarBotaoStartStop();
     widgetPage.validarSeValorBarraRolagemMenorQue25();
     widgetPage.clicarBotaoStartStop();
@@ -79,8 +58,7 @@ describe('Testes Aplicação DemoQA', () => {
 
   })
 
-  it.only("organizar Itens em ordem decrescente", () => {
-
+  it("Validar ordenação dos botões na lista para ordem decrescente", () => {
     formsPageDefault.clicarbotao("Interactions");
     formsPageDefault.clicarbotao("Sortable");
     InteractionsPage.validarSeListaDeItensEstaVisivel();
@@ -89,6 +67,8 @@ describe('Testes Aplicação DemoQA', () => {
 
   })
 
-
+  afterEach(()=>{
+    cy.screenshot();
+  })
 
 })

@@ -8,7 +8,6 @@ class widgetPage {
 
     }
 
-
     validarSeValorBarraRolagemMenorQue25() {
         this.elementos.barraRolagem().invoke('text')
             .then(text => {

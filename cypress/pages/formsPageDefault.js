@@ -27,7 +27,13 @@ class formsPageDefault {
     preencherCampoEmail(email) {
         this.elementos.campoEmail().clear().type(email)
     }
+    acessarSite(url) {
+        cy.visit(url)
+    }
 
+    aguardarTempo(tempo) {
+        cy.wait(tempo)
+    }
 }
 
 export default new formsPageDefault()
